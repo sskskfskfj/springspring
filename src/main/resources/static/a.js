@@ -1,8 +1,6 @@
 var usernamePage = document.querySelector('#username-page');
-var registerPage = document.querySelector('#register-page');
 var chatPage = document.querySelector('#chat-page');
 var usernameForm = document.querySelector('#usernameForm');
-var registerForm = document.querySelector('#registerForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
@@ -19,7 +17,7 @@ var colors = [
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
-    if (username) {
+    if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
@@ -31,28 +29,30 @@ function connect(event) {
     event.preventDefault();
 }
 
+
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser", {},
-        JSON.stringify({
-            sender: username,
-            type: 'JOIN'
-        }));
+    stompClient.send("/app/chat.addUser",
+        {},
+        JSON.stringify({sender: username, type: 'JOIN'})
+    )
 
     connectingElement.classList.add('hidden');
 }
+
 
 function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
 
+
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
-    if (messageContent && stompClient) {
+    if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
             content: messageInput.value,
@@ -64,12 +64,13 @@ function sendMessage(event) {
     event.preventDefault();
 }
 
+
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
 
-    if (message.type === 'JOIN') {
+    if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
     } else if (message.type === 'LEAVE') {
@@ -101,6 +102,7 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
+
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -109,7 +111,10 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % colors.length);
     return colors[index];
 }
-function switchToSignup() {
+
+usernameForm.addEventListener('submit', connect, true)
+messageForm.addEventListener('submit', sendMessage, true)
+/*function switchToSignup() {
     // 회원가입 폼을 보이게 하고, 로그인 폼을 숨깁니다.
     document.getElementById('username-page').classList.add('hidden');
     document.getElementById('signup-page').classList.remove('hidden');
@@ -126,4 +131,4 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // 폼 제출을 중단합니다.
         // 여기에 가입 처리 로직을 추가하세요.
     });
-});
+});*/

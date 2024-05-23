@@ -443,3 +443,76 @@ var usernamePage = document.querySelector('#username-page');
                             </form>
                         </div>
                     </div>
+
+
+
+
+
+
+
+                    <div id="username-page" class="visible">
+                            <div class="username-page-container">
+                                <h1 class="title">로그인</h1>
+                                <form id="usernameForm">
+                                    <div class="form-group">
+                                        <input type="text" id="username" placeholder="아이디" autocomplete="off" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="password" placeholder="비밀번호" autocomplete="off" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="accent username-submit">로그인</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="accent" onclick="switchToSignup()" id="signin">회원가입</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="signup-page" class="hidden">
+                            <div class="username-page-container">
+                                <h1 class="title">회원가입</h1>
+                                <form id="registerForm">
+                                    <div class="form-group">
+                                        <input type="text" id="newUsername" placeholder="아이디" autocomplete="off" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="newPassword" placeholder="비밀번호" autocomplete="off" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="accent">가입</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="accent" >로그인</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="chat-page" class="hidden">
+                            <div class="chat-container">
+                                <div class="chat-header">
+                                    <h2>demo</h2>
+                                </div>
+                                <div class="connecting">
+                                    CONNECTING...
+                                </div>
+                                <ul id="messageArea">
+                                    <!-- 메시지 영역 -->
+                                </ul>
+                                <form id="messageForm" name="messageForm">
+                                    <div class="form-group">
+                                        <div class="input-group clearfix">
+                                            <input type="text" id="message" placeholder="메세지를 작성하세요" autocomplete="off" class="form-control"/>
+                                            <button type="submit" class="primary">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        spring.h2.console.enabled=true
+                        spring.datasource.url=jdbc:h2:mem:testdb
+                        spring.datasource.driverClassName=org.h2.Driver
+                        spring.datasource.username=sa
+                        spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
